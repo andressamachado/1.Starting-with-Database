@@ -1,0 +1,91 @@
+
+-- March 12 2018
+-- Practice 
+SELECT * FROM Park_t; 
+SELECT * FROM Province_t;
+
+--try simlpe join code
+--by equationg PK of aprent with FK of child 
+SELECT * 
+FROM 
+	Park_t JOIN Province_t 
+	ON Park_t.abbreviation = Province_t.abbreviation; 
+
+	SELECT * FROM Park_t; 
+
+--now select the correct colummns 
+SELECT 
+	parkname AS "Park Name", 
+	province AS "Province Name"
+FROM 
+	Park_t JOIN Province_t
+	ON Park_t.abbreviation = province_t.abbreviation; 
+
+--NATURAL JOIN
+SELECT 
+	parkname AS "Park Name", 
+	province AS "Province Name"
+FROM 
+	Park_t NATURAL JOIN Province_t; 
+
+
+-- "USING()" instead of ON 
+SELECT 
+	parkname AS "Park Name",
+	province AS "Province Name"
+FROM 
+	park_t JOIN Province_t
+	USING (abbreviation); 
+
+
+--now create  a table with vegetation name and park name 
+SELECT * FROM Vegetation_t;
+SELECT * FROM Park_t;
+SELECT * FROM parkvegetation_t; 
+
+--look how it doesnt work 
+SELECT 
+	vegname AS "Vegetation Name",
+	parkname AS "Park Name"
+FROM
+	Vegetation_t JOIN Park_t
+	ON Park_t.abbreviation = Province_t.abbreviation; 
+
+--observe that it is a three way connection 
+SELECT 
+	vegname AS "Vegetation Name",
+	parkname AS "Park Name"
+FROM
+	Vegetation_t JOIN ParkVegetation_t
+	ON Vegetation_t.vegid = ParkVegetation_t.vegid
+	JOIN
+	park_t
+	ON ParkVegetation_t.parkid=Park_t.parkid;  
+
+
+--lets practice outer join 
+--FIND OUT WHICH VEGETATION DONT HAVE RECORDS IN PARKS 
+--WE WANT ALL VEGETATION - so choose that for the outer side 
+SELECT 
+	vegname AS "Vegetation Name",
+	parkname AS "Park Name"
+FROM
+	Vegetation_t LEFT OUTER JOIN ParkVegetation_t
+	ON Vegetation_t.vegid = ParkVegetation_t.vegid
+	LEFT OUTER JOIN park_t
+	ON ParkVegetation_t.parkid=Park_t.parkid;   
+
+
+--GROUP BY and and HAVING 
+SELECT 
+	vegname AS "Vegetation Name",
+	count(parkname) AS "Park Count"
+FROM
+	Vegetation_t LEFT OUTER JOIN ParkVegetation_t
+	ON Vegetation_t.vegid = ParkVegetation_t.vegid
+	LEFT OUTER JOIN park_t
+	ON ParkVegetation_t.parkid=Park_t.parkid
+GROUP BY 
+	vegname
+HAVING 
+	count(parkname) < 1;

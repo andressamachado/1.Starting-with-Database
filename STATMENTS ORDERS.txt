@@ -1,0 +1,24 @@
+WEEK8 REVIEW 
+
+select fname AS  " firt Name",
+prod_qtty * prod_price AS " product expense",
+count numberOfItens) AS "Number of Items",
+concatenate (fname, "", lname) AS "Full Name"
+
+FROM 
+	AnyView_v(or AnyTable1_T JOIN AnuTable2_T ON)
+WHERE 
+iNTcOLUMN >, <, = VALUE
+and
+TextColumn LIKE ;%abc'
+OF 
+OrigColumn = (SELECT someothercolumn from another_t))
+or 
+between 100 AND  200  
+in(100,200,300), NOT IN ()
+order by
+	ANY COLUMN asc/desc
+
+----
+GROUP BY - Only if a non aggregate col included with aggregate column 
+HAVING - ON AGGREGATE COLMN (SAME AS WHERE) 
